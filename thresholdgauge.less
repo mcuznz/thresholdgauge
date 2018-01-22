@@ -1,0 +1,79 @@
+.threshold_gauge {
+  @threshold_gauge_height: @threshold_gauge_width / 2;
+  @threshold_border_radius: 7000px;
+
+  position: relative;
+  width: @threshold_gauge_width;
+  height: @threshold_gauge_height;
+
+  .threshold_gauge_container {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    overflow: hidden;
+    text-align: center;
+    transform: translateX(-50%);
+
+    .threshold_gauge_center {
+      width: 50%;
+      height: 50%;
+      top: 50%;
+      margin-left: 25%;
+
+      z-index: 3;
+      position: absolute;
+      background-color: @threshold_gauge_color_center;
+      margin-right: 0;
+      border-radius: @threshold_border_radius @threshold_border_radius 0 0;
+    }
+
+    .threshold_gauge_above_threshold_arc,
+    .threshold_gauge_below_threshold_arc,
+    .threshold_gauge_value_arc {
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: @threshold_border_radius @threshold_border_radius 0 0;
+
+      -webkit-transform-origin: center bottom;
+      -moz-transform-origin: center bottom;
+      -ms-transform-origin: center bottom;
+      -o-transform-origin: center bottom;
+      transform-origin: center bottom;
+
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      -ms-transition: all 1s ease-in-out;
+      -o-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+    }
+
+    .threshold_gauge_above_threshold_arc {
+      z-index: 0;
+      background-color: @threshold_gauge_color_above_threshold;
+    }
+    .threshold_gauge_below_threshold_arc {
+      z-index: 1;
+      background-color: @threshold_gauge_color_below_threshold;
+    }
+    .threshold_gauge_value_arc {
+      @threshold_value_arc_size: 100% * @threshold_gauge_value_arc_scale;
+      @threshold_value_margin: (100% - @threshold_value_arc_size) / 2;
+
+      width: @threshold_value_arc_size;
+      height: @threshold_value_arc_size;
+      margin-top: @threshold_value_margin;
+      margin-left: @threshold_value_margin;
+
+      z-index: 2;
+      background-color: @threshold_gauge_color_value;
+    }
+  }
+}
