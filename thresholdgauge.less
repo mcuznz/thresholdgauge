@@ -4,17 +4,28 @@
 
   position: relative;
   width: @threshold_gauge_width;
-  height: @threshold_gauge_height;
+  height: @threshold_gauge_height + @threshold_gauge_bottom_padding;
+  overflow: hidden;
+
+  .threshold_gauge_overflow_cover {
+    position: absolute;
+    top: @threshold_gauge_height;
+    left: 0;
+    width: 100%;
+    height: @threshold_gauge_height;
+    z-index: 50;
+    background-color: @threshold_gauge_color_center;
+  }
 
   .threshold_gauge_container {
-    width: 100%;
-    height: 100%;
+    width: @threshold_gauge_width;
+    height: @threshold_gauge_height;
 
     margin: 0;
     padding: 0;
     position: absolute;
     left: 50%;
-    overflow: hidden;
+    //overflow: hidden;
     text-align: center;
     transform: translateX(-50%);
 
@@ -24,7 +35,7 @@
       top: 50%;
       margin-left: 25%;
 
-      z-index: 3;
+      z-index: 40;
       position: absolute;
       background-color: @threshold_gauge_color_center;
       margin-right: 0;
@@ -33,7 +44,21 @@
 
     .threshold_gauge_above_threshold_arc,
     .threshold_gauge_below_threshold_arc,
-    .threshold_gauge_value_arc {
+    .threshold_gauge_value_arc,
+    .threshold_gauge_value_needle,
+    .threshold_gauge_target_arc,
+    .threshold_gauge_target_needle {
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      -ms-transition: all 1s ease-in-out;
+      -o-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+    }
+
+    .threshold_gauge_above_threshold_arc,
+    .threshold_gauge_below_threshold_arc,
+    .threshold_gauge_value_arc,
+    .threshold_gauge_target_arc {
       width: 100%;
       height: 100%;
 
@@ -47,12 +72,6 @@
       -ms-transform-origin: center bottom;
       -o-transform-origin: center bottom;
       transform-origin: center bottom;
-
-      -webkit-transition: all 1s ease-in-out;
-      -moz-transition: all 1s ease-in-out;
-      -ms-transition: all 1s ease-in-out;
-      -o-transition: all 1s ease-in-out;
-      transition: all 1s ease-in-out;
     }
 
     .threshold_gauge_above_threshold_arc {
@@ -60,10 +79,11 @@
       background-color: @threshold_gauge_color_above_threshold;
     }
     .threshold_gauge_below_threshold_arc {
-      z-index: 1;
+      z-index: 10;
       background-color: @threshold_gauge_color_below_threshold;
     }
-    .threshold_gauge_value_arc {
+
+    .threshold_gauge_value_arc when (@threshold_gauge_show_value_arc = true) {
       @threshold_value_arc_size: 100% * @threshold_gauge_value_arc_scale;
       @threshold_value_margin: (100% - @threshold_value_arc_size) / 2;
 
@@ -72,8 +92,83 @@
       margin-top: @threshold_value_margin;
       margin-left: @threshold_value_margin;
 
-      z-index: 2;
-      background-color: @threshold_gauge_color_value;
+      z-index: 30;
+      background-color: @threshold_gauge_color_value_arc;
+    }
+
+    .threshold_gauge_value_needle,
+    .threshold_gauge_target_needle {
+      display: inline;
+      overflow: hidden;
+      width: 100%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 6;
+
+      -webkit-transform-origin: center center;
+      -moz-transform-origin: center center;
+      -ms-transform-origin: center center;
+      -o-transform-origin: center center;
+      transform-origin: center center;
+    }
+
+    .threshold_gauge_value_needle {
+      --points: ~"@{threshold_gauge_value_needle_points}";
+      z-index: 70;
+
+      polygon {
+        fill: @threshold_gauge_color_value_needle;
+        stroke: @threshold_gauge_color_value_needle_stroke;
+        stroke-width: @threshold_gauge_value_needle_stroke_width;
+        fill-rule: initial;
+      }
+    }
+
+    .threshold_gauge_target_needle {
+      --points: ~"@{threshold_gauge_target_needle_points}";
+      z-index: 60;
+
+      polygon {
+        fill: @threshold_gauge_color_target_needle;
+        stroke: @threshold_gauge_color_target_needle_stroke;
+        stroke-width: @threshold_gauge_target_needle_stroke_width;
+        fill-rule: initial;
+      }
+    }
+
+    .threshold_gauge_target_arc when (@threshold_gauge_show_target_arc = true) {
+      @threshold_target_arc_size: 100% * @threshold_gauge_target_arc_scale;
+      @threshold_target_margin: (100% - @threshold_target_arc_size) / 2;
+
+      width: @threshold_target_arc_size;
+      height: @threshold_target_arc_size;
+      margin-top: @threshold_target_margin;
+      margin-left: @threshold_target_margin;
+
+      z-index: 20;
+      background-color: @threshold_gauge_color_target_arc;
+    }
+
+    /* Because we can't combine multiple guards in one selector... */
+    .threshold_gauge_value_arc when (@threshold_gauge_show_value_arc = false) {
+      display: none;
+    }
+    .threshold_gauge_value_needle when (@threshold_gauge_show_value_needle = false) {
+      display: none;
+    }
+    .threshold_gauge_target_arc when (@threshold_gauge_show_target_arc = false) {
+      display: none;
+    }
+    .threshold_gauge_target_needle when (@threshold_gauge_show_target_needle = false) {
+      display: none;
+    }
+  }
+
+  &.no_target {
+    .threshold_gauge_target_arc, .threshold_gauge_target_needle {
+      display: none;
     }
   }
 }

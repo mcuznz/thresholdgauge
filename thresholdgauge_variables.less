@@ -1,7 +1,29 @@
 @threshold_gauge_width: 300px;
 @threshold_gauge_color_below_threshold: lightblue;
 @threshold_gauge_color_above_threshold: red;
-@threshold_gauge_color_value: green;
 @threshold_gauge_color_center: white;
 @threshold_gauge_center_scale: 0.5;
+
+// This makes room for the needles to be drawn outside the bounds of the
+// semi-circle. If you're disabling Needles, this can be 0.
+@threshold_gauge_bottom_padding: 20px;
+
+// Pertaining to the Value Arc and Needle
+@threshold_gauge_show_value_arc: true;
 @threshold_gauge_value_arc_scale: 0.9;
+@threshold_gauge_show_value_needle: true;
+@threshold_gauge_value_needle_points: "500,250 250,260 245,258.7 241.3,255 240,250 241.3,245 245,241.3 250,240";
+@threshold_gauge_color_value_arc: green;
+@threshold_gauge_color_value_needle: rgb(64,64,64);
+@threshold_gauge_color_value_needle_stroke: rgb(32,32,32);
+@threshold_gauge_value_needle_stroke_width: 1px;
+
+// Pertaining to the Target Arc and Needle
+@threshold_gauge_show_target_arc: false;
+@threshold_gauge_target_arc_scale: 0.8;
+@threshold_gauge_show_target_needle: false;
+@threshold_gauge_target_needle_points: "475,250 250,260 245,258.7 241.3,255 240,250 241.3,245 245,241.3 250,240";
+@threshold_gauge_color_target_arc: yellow;
+@threshold_gauge_color_target_needle: rgba(64,64,64,0.5);
+@threshold_gauge_color_target_needle_stroke: rgba(32,32,32,0.5);
+@threshold_gauge_target_needle_stroke_width: 1px;
