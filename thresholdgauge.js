@@ -245,7 +245,6 @@ define(function(require){
   };
 
   var body = document.getElementsByTagName("body")[0];
-  console.log("B", body);
   if (body) {
     ["webkitTransform", "mozTransform", "msTransform", "oTransform", "transform"].
       forEach(function(p) {

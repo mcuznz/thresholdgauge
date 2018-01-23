@@ -5,8 +5,6 @@ requirejs.config({
 // Start the main app logic.
 requirejs(['thresholdgauge'],
 function (thresholdGauge) {
-  debugger;
-
   setTimeout(function() {
     var el = document.getElementById('svg_container');
     var gauge = new thresholdGauge({
@@ -18,5 +16,5 @@ function (thresholdGauge) {
       target: 120
     });
     window.gauge = gauge;
-  }, 1000);
+  }, 1);
 });
