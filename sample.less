@@ -1,2 +1,15 @@
 @import "thresholdgauge_variables.less";
+
+// Override some defaults
+@threshold_gauge_color_above_threshold: mix(white, red, 20%);
+@threshold_gauge_color_value_arc: fade(blue, 50%);
+@threshold_gauge_color_target_arc: fade(yellow, 50%);
+@threshold_gauge_color_center: white;
+@threshold_gauge_width: 300px;
+
+@threshold_gauge_show_value_arc: true;
+@threshold_gauge_show_value_needle: true;
+@threshold_gauge_show_target_arc: true;
+@threshold_gauge_show_target_needle: true;
+
 @import "thresholdgauge.less";
